@@ -16,26 +16,38 @@ import java.net.Socket;
 public class Servidor {
     private static int PUERTO = 4536;
     private static int NUMEROCLIENTES = 10;
+    int conexiones = 0;
+    Socket cliente;
+    ServerSocket servidor;
+    
+    public Servidor(){
+        this.createSocketThread();
+    }
     
     public void createSocketThread(){
-        ServerSocket server = null;
         int conexionesActivas = 0;
         try{
-            server = new ServerSocket(PUERTO);
+            servidor = new ServerSocket(PUERTO);
             while(conexionesActivas++ <= NUMEROCLIENTES || NUMEROCLIENTES == 0){
-                System.out.println(conexionesActivas);
-                Socket cliente = server.accept();
+                this.esperarConexion();
+                System.out.println("Cliente # "+conexiones+" Conectado");
                 new Thread(new HiloServidor(cliente)).start();
             }
         } catch (IOException exp) {
             exp.printStackTrace();
         } finally {
             try {
-                server.close();
+                servidor.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+    
+    private void esperarConexion() throws IOException{
+        System.out.println("Esperando conexion...");
+        cliente = servidor.accept();
+        System.out.println("Conexion " + conexiones + " recibida de: " + cliente.getInetAddress().getHostAddress());
     }
     
     public static void main(String[] args) {

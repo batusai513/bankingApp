@@ -5,6 +5,8 @@
  */
 package application;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -15,19 +17,45 @@ import java.util.logging.Logger;
  * @author Richard
  */
 public class HiloServidor implements Runnable {
+    private static int numeroClientes = 0;
     Socket cliente;
+    DataInputStream entrada = null;
+    DataOutputStream salida = null;
     HiloServidor(Socket cliente){
         this.cliente = cliente;
     }
     @Override
     public void run() {
-        
-        
+        numeroClientes++;    
         try {
-            cliente.close();
+            while(true){
+                this.obtenerFlujos();
+                String mensaje = entrada.readUTF();
+                System.out.println("mensaje: " + mensaje);
+                salida.writeUTF("recibido el mensaje :" + mensaje);
+            }
         } catch (IOException ex) {
             Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
+        } catch( Exception e){
+            Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, e);
+            e.printStackTrace();      
+        } finally{
+            this.cerrarConexiones();
+        }
+    }
+    private void obtenerFlujos() throws IOException{
+        salida = new DataOutputStream(cliente.getOutputStream());
+        salida.flush();
+        entrada = new DataInputStream(cliente.getInputStream());
+    }
+    private void cerrarConexiones(){
+        try {
+            salida.close();
+            entrada.close();
+            cliente.close();
+        } catch (IOException ex) {
+            Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
