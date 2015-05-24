@@ -19,9 +19,11 @@ public class Servidor {
     
     public void createSocketThread(){
         ServerSocket server = null;
+        int conexionesActivas = 0;
         try{
             server = new ServerSocket(PUERTO);
-            while(true){
+            while(conexionesActivas++ <= NUMEROCLIENTES || NUMEROCLIENTES == 0){
+                System.out.println(conexionesActivas);
                 Socket cliente = server.accept();
                 new Thread(new HiloServidor(cliente)).start();
             }
@@ -34,5 +36,9 @@ public class Servidor {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        new Servidor();
     }
 }
