@@ -22,26 +22,34 @@ public class Cliente {
     private String host = "localhost";
     private int puerto = 4536;
     private Socket socket = null;
-    private InputStream is = null;
-    private OutputStream os = null;
+    private DataOutputStream salida = null;
+    private DataInputStream entrada = null;
     
     public void crearConexion(){
         try {
-            socket = new Socket(host, puerto);
-            os = socket.getOutputStream();
-            is = socket.getInputStream();
+            this.conectarAlServidor();
             int i = 0;
             while(true){
-                DataOutputStream dos = new DataOutputStream(os);
-                dos.writeUTF("Enviando dato: " + i++);
-                DataInputStream dis = new DataInputStream(is);
-                System.out.println(dis.readUTF());
+                this.obtenerFlujos();
+                salida.writeUTF("Enviando dato: " + i++);
+                System.out.println(entrada.readUTF());
             }
             
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void conectarAlServidor() throws IOException{
+        socket = new Socket(host, puerto);
+    }
+    
+    private void obtenerFlujos() throws IOException{
+        salida = new DataOutputStream(socket.getOutputStream());
+        salida.flush();
+        
+        entrada = new DataInputStream(socket.getInputStream());
     }
     
     public static void main(String[] args) {
