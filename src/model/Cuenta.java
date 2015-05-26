@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -14,6 +15,7 @@ import java.io.Serializable;
 public class Cuenta implements Serializable{
     private int numeroDeCuenta;
     private Double saldo;
+    private Date fechaCreacion;
     private Cliente cliente;
 
     public int getNumeroDeCuenta() {
