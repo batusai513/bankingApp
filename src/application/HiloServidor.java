@@ -44,6 +44,11 @@ public class HiloServidor implements Runnable {
             this.cerrarConexiones();
         }
     }
+    private String procesar(String mensaje){
+        
+        return null;
+    }
+    
     private void obtenerFlujos() throws IOException{
         salida = new DataOutputStream(cliente.getOutputStream());
         salida.flush();

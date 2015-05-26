@@ -7,14 +7,18 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author Richard
  */
 public class Cliente implements Serializable{
+    private int clienteId;
     private String nombre;
     private String apellido;
+    private String email;
+    private Date fechaCreacion;
     private ArrayList<Cuenta> cuenta;
 
     public String getNombre() {
@@ -39,5 +43,29 @@ public class Cliente implements Serializable{
 
     public void setCuenta(ArrayList<Cuenta> cuenta) {
         this.cuenta = cuenta;
+    }
+
+    public int getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }
