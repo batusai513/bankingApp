@@ -1,6 +1,6 @@
 create database UserDB;
 use UserDB;
-grant all on UserDB.* to 'admin'@'localhost' identified by 'test'; 
+grant all on UserDB.* to 'root'@'localhost' identified by 'test';
 
 CREATE TABLE UserDB.`cliente` (
     `clienteId` int(11) NOT NULL AUTO_INCREMENT,
@@ -8,9 +8,11 @@ CREATE TABLE UserDB.`cliente` (
     `apellido` varchar(45) NOT NULL,
     `fechaCreacionCliente` date NOT NULL,
     `email` varchar(100) DEFAULT NULL,
+    `password` varchar(10) NOT NULL,
     PRIMARY KEY (`clienteId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
+insert into cliente(nombre, apellido, fechaCreacionCliente, email, password) values("Richard", "Roncancio", CURDATE(), "email@koombea.com", "koombea123");
 
 CREATE TABLE UserDB.`cuenta` (
     `numeroDeCuenta` int(11) NOT NULL AUTO_INCREMENT,

@@ -20,6 +20,7 @@ public class Cliente implements Serializable{
     private String email;
     private Date fechaCreacion;
     private ArrayList<Cuenta> cuenta;
+    private String clave;
 
     public String getNombre() {
         return nombre;
@@ -67,5 +68,9 @@ public class Cliente implements Serializable{
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
+    }
+
+    public String getClave() {
+        return this.clave;
     }
 }

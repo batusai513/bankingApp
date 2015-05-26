@@ -5,17 +5,40 @@
  */
 package bankingapp;
 
+import model.Cliente;
+import model.Cuenta;
+import services.ClienteService;
+import services.CuentaService;
+
 /**
  *
  * @author Richard
  */
 public class BankingApp {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+    Cliente clienteActual;
+    Cuenta cuentaActual;
+    ClienteService servicioCliente;
+    CuentaService servicioCuenta;
     
+    private String getParam(String str) {
+        return str.substring(str.indexOf('='));
+    }
+
+    public String crearSesion(String datos) {
+        String[] params = datos.split("&");
+        
+        String email = getParam(params[0]);
+        String clave = getParam(params[1]);
+        
+        Cliente cliente = servicioCliente.obtenerCliente(email);
+        
+        if(cliente != null) {
+            if (clave.equals(cliente.getClave())) {
+                return "SUCCESS";
+            }
+        }
+        
+        return null;
+    }
 }

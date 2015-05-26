@@ -7,6 +7,7 @@ package services;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,10 +20,30 @@ import utilities.Db;
  */
 public class ClienteService {
     
-    private Connection connection;
+    private final Connection connection;
     
     public ClienteService(){
         connection = Db.getConnection();
+    }
+    
+    public Cliente obtenerCliente(String email) {
+        Cliente cliente = new Cliente();
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from cliente where email=?");
+            preparedStatement.setString(1, email);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if (rs.next()) {
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setNombre(rs.getString("clave"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return cliente;
     }
     
     public void addCliente(Cliente cliente){

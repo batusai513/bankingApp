@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ public class Cliente {
     private Socket socket = null;
     private DataOutputStream salida = null;
     private DataInputStream entrada = null;
+    private Scanner sc = new Scanner(System.in);
     
     public void crearConexion(){
         try {
@@ -31,8 +33,8 @@ public class Cliente {
             int i = 0;
             while(true){
                 this.obtenerFlujos();
-                salida.writeUTF("Enviando dato: " + i++);
-                System.out.println(entrada.readUTF());
+                this.correrAplicacion();
+                //System.out.println(entrada.readUTF());
             }
             
         } catch (IOException ex) {
@@ -55,5 +57,18 @@ public class Cliente {
     public static void main(String[] args) {
         Cliente c = new Cliente();
         c.crearConexion();
+    }
+
+    private void correrAplicacion() throws IOException {
+        System.out.println("Escriba su correo");
+        String email = sc.nextLine();
+        System.out.println("Escriba su clave");
+        String clave = sc.nextLine();
+        
+        salida.writeUTF("session/create:email=" + email + "&clave=" + clave);
+        
+        String respuesta = entrada.readUTF();
+        
+        System.out.println(respuesta);
     }
 }
