@@ -34,9 +34,7 @@ public class Cliente {
             while(true){
                 this.obtenerFlujos();
                 this.correrAplicacion();
-                //System.out.println(entrada.readUTF());
             }
-            
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,6 +58,7 @@ public class Cliente {
     }
 
     private void correrAplicacion() throws IOException {
+        System.out.println("\n\nBienvenido");
         System.out.println("Escriba su correo");
         String email = sc.nextLine();
         System.out.println("Escriba su clave");
@@ -69,6 +68,29 @@ public class Cliente {
         
         String respuesta = entrada.readUTF();
         
-        System.out.println(respuesta);
+        if (respuesta.equals("SUCCESS")) {
+            System.out.println("Seleccione una opcion");
+            System.out.println("1. Ver saldo");
+            System.out.println("2. Pagar servicios");
+            System.out.println("3. Salir");
+            
+            String opcion = sc.nextLine();
+            
+            switch(opcion) {
+                case "1":
+                    System.out.println("No tiene saldo");
+                    break;
+                case "2":
+                    System.out.println("No tiene servicios a pagar");
+                    break;
+                case "3":
+                    System.out.println("Good Bye!");
+                    break;
+                default:
+                    System.out.println("Opcion Invalida");
+            }
+        } else {
+            System.out.println("Correo incorrecto o clave incorrecta");
+        }
     }
 }

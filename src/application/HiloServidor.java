@@ -35,9 +35,8 @@ public class HiloServidor implements Runnable {
             while(true){
                 this.obtenerFlujos();
                 String mensaje = entrada.readUTF();
-                atender(mensaje);
-                //System.out.println("mensaje: " + mensaje);
-                //salida.writeUTF("recibido el mensaje :" + mensaje);
+
+                salida.writeUTF(atender(mensaje));
             }
         } catch (IOException ex) {
             Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,7 +74,6 @@ public class HiloServidor implements Runnable {
         switch(mensajeDividido[0]) {
             case "session/create" :
                 Object respuesta = this.aplicacion.crearSesion(mensajeDividido[1]);
-                System.out.println(respuesta);
                 return this.responder(respuesta);
             default:
                 return "ERROR";
