@@ -32,9 +32,13 @@ public class Controlador {
         String email = params.get("email");
         String password = params.get("password");
         
+        model.Cliente cliente = Database.Cliente.buscarPorEmail(email);
         
-        
-        return "SUCCESS";
+        if (cliente != null && cliente.getClave().equals(password)) {
+            return "SUCCESS:" + cliente.toString();
+        } else {
+            return "ERROR";
+        }
     }
     
 }

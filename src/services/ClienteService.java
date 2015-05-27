@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Cliente;
-import utilities.Db;
+import Database.Database;
 
 /**
  *
@@ -23,7 +23,7 @@ public class ClienteService {
     private final Connection connection;
     
     public ClienteService(){
-        connection = Db.getConnection();
+        connection = Database.getConnection();
     }
     
     public Cliente obtenerCliente(String email) {

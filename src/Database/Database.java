@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utilities;
+package Database;
 
 import java.sql.*;
 
@@ -11,7 +11,7 @@ import java.sql.*;
  *
  * @author Richard
  */
-public class Db {
+public class Database {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/UserDB";
     

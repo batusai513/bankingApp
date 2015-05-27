@@ -8,6 +8,8 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
+import utilities.Parser;
 
 /**
  *
@@ -83,12 +85,12 @@ public class Cliente implements Serializable{
     }
     
     public void toObject(String post) {
-        String[] params = post.split("&");
+        Hashtable<String, String> params = Parser.getParams(post);
         
-        this.clienteId = Integer.parseInt(getParam(params[0]));
-        this.nombre = getParam(params[1]);
-        this.apellido = getParam(params[2]);
-        this.email = getParam(params[3]);
+        this.clienteId = Integer.parseInt(params.get("id"));
+        this.nombre = params.get("nombre");
+        this.apellido = params.get("apellido");
+        this.email = params.get("email");
     }
     
     public String toString() {

@@ -27,6 +27,7 @@ public class Cliente {
     private DataInputStream entrada = null;
     private Scanner sc = new Scanner(System.in);
     private Boolean running = true;
+    private model.Cliente clienteActual;
     
     public void crearConexion(){
         try {
@@ -59,7 +60,7 @@ public class Cliente {
     }
 
     private void correrAplicacion() throws IOException {
-        System.out.println("\n\nBienvenido");
+        System.out.println("\n\nBanco");
         System.out.println("Escriba su correo");
         String email = sc.nextLine();
         System.out.println("Escriba su clave");
@@ -68,7 +69,18 @@ public class Cliente {
         salida.writeUTF("session/create:email=" + email + "&password=" + clave);
         
         String respuesta = entrada.readUTF();
+        String[] arrayRespuesta = respuesta.split(":");
+        String estado = arrayRespuesta[0];
         
-        System.out.println(respuesta);
+        if (estado.equals("SUCCESS")) {
+            String datos = arrayRespuesta[1];
+            
+            this.clienteActual = new model.Cliente();
+            this.clienteActual.toObject(datos);
+            
+            System.out.println("Bienvenido, " + this.clienteActual.getNombre());
+        } else {
+            System.out.println("Error de autenticacion");
+        }
     }
 }
