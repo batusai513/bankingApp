@@ -26,12 +26,13 @@ public class Cliente {
     private DataOutputStream salida = null;
     private DataInputStream entrada = null;
     private Scanner sc = new Scanner(System.in);
+    private Boolean running = true;
     
     public void crearConexion(){
         try {
             this.conectarAlServidor();
             int i = 0;
-            while(true){
+            while(running){
                 this.obtenerFlujos();
                 this.correrAplicacion();
             }
@@ -67,9 +68,18 @@ public class Cliente {
         salida.writeUTF("session/create:email=" + email + "&clave=" + clave);
         
         String respuesta = entrada.readUTF();
+        String[] arrayRespuesta = respuesta.split(":");
         
-        if (respuesta.equals("SUCCESS")) {
-            System.out.println("Seleccione una opcion");
+        String estado = arrayRespuesta[0];
+        
+        if (estado.equals("SUCCESS")) {
+            String datosCliente = arrayRespuesta[1];
+            
+            model.Cliente clienteActual = new model.Cliente();
+            clienteActual.toObject(datosCliente);
+            
+            System.out.println("\nBienvenido, " + clienteActual.getNombre() + ". Seleccione una opcion:");
+            
             System.out.println("1. Ver saldo");
             System.out.println("2. Pagar servicios");
             System.out.println("3. Salir");
@@ -78,13 +88,14 @@ public class Cliente {
             
             switch(opcion) {
                 case "1":
-                    System.out.println("No tiene saldo");
+                    salida.writeUTF("balance/show:client_id=" + clienteActual.getClienteId());
                     break;
                 case "2":
                     System.out.println("No tiene servicios a pagar");
                     break;
                 case "3":
                     System.out.println("Good Bye!");
+                    running = false;
                     break;
                 default:
                     System.out.println("Opcion Invalida");

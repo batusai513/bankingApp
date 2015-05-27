@@ -39,7 +39,7 @@ public class BankingApp {
         
         if(cliente != null) {
             if (clave.equals(cliente.getClave())) {
-                return "SUCCESS";
+                return "SUCCESS:"+cliente.toString();
             }
         }
         

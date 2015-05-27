@@ -77,4 +77,28 @@ public class Cliente implements Serializable{
     public void setClave(String clave) {
         this.clave = clave;
     }
+    
+    private String getParam(String str) {
+        return str.substring(str.indexOf('=') + 1);
+    }
+    
+    public void toObject(String post) {
+        String[] params = post.split("&");
+        
+        this.clienteId = Integer.parseInt(getParam(params[0]));
+        this.nombre = getParam(params[1]);
+        this.apellido = getParam(params[2]);
+        this.email = getParam(params[3]);
+    }
+    
+    public String toString() {
+        String cadena = "";
+        
+        cadena += "id=" + this.clienteId;
+        cadena += "&nombre=" + this.nombre;
+        cadena += "&apellido=" + this.apellido;
+        cadena += "&email=" + this.email;
+
+        return cadena;
+    }
 }

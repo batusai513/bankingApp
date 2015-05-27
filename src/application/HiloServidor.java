@@ -75,6 +75,9 @@ public class HiloServidor implements Runnable {
             case "session/create" :
                 Object respuesta = this.aplicacion.crearSesion(mensajeDividido[1]);
                 return this.responder(respuesta);
+             case "balance/show" :
+                
+                return this.responder("Balance en cero");
             default:
                 return "ERROR";
         }
