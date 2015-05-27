@@ -3,28 +3,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Database;
+package DAO;
 
+import Database.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import services.ClienteService;
+import model.Cliente;
 
 /**
  *
  * @author andresroberto
  */
-public class Cliente {
-    private static Connection connection = Database.getConnection();;    
+public class ClienteDAO {
+    private static Connection connection;
+    
+    public ClienteDAO(){
+        connection = Database.getConnection();
+    }
+    
     /**
      *
      * @param email
      * @return
      */
-    public static model.Cliente buscarPorEmail(String email) {        
+    public static Cliente buscarPorEmail(String email) {        
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM cliente WHERE email=?");
             preparedStatement.setString(1, email);
@@ -43,7 +49,7 @@ public class Cliente {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         

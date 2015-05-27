@@ -1,9 +1,9 @@
 package Servidor;
 
-import application.HiloServidor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +21,10 @@ import java.util.logging.Logger;
 public class Enrutador implements Runnable {
     
     Socket socketCliente;
-    DataInputStream inputStream;
-    DataOutputStream outpuStream;
+    DataInputStream entrada;
+    DataOutputStream salida;
     
-    String entrada;
+    String mensaje;
     Controlador controlador;
 
     Enrutador(Socket socketCliente) {
@@ -32,20 +32,21 @@ public class Enrutador implements Runnable {
         this.controlador = new Controlador();
     }
     
+
     private void obtenerFlujos() throws IOException{
-        outpuStream = new DataOutputStream(socketCliente.getOutputStream());
-        outpuStream.flush();
+        salida = new DataOutputStream(socketCliente.getOutputStream());
+        salida.flush();
         
-        inputStream = new DataInputStream(socketCliente.getInputStream());
+        entrada = new DataInputStream(socketCliente.getInputStream());
     }
     
     private void cerrarConexiones(){
         try {
-            outpuStream.close();
-            inputStream.close();
+            salida.close();
+            entrada.close();
             socketCliente.close();
         } catch (IOException ex) {
-            Logger.getLogger(HiloServidor.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
     
@@ -61,17 +62,25 @@ public class Enrutador implements Runnable {
         }
     }
     
+    private void procesarConexion() throws IOException{
+        do{
+            mensaje = entrada.readUTF();
+            String salida  = generarRespuesta(mensaje);
+
+            this.enviarMensaje(salida);
+        }while(!mensaje.equals("EXIT"));
+    }
+    
+    private void enviarMensaje(String mensaje) throws IOException{
+        salida.writeUTF(mensaje);
+        salida.flush();
+    }
+    
     @Override
     public void run() {   
         try {
-            while(true){
-                obtenerFlujos();
-                
-                String entrada = inputStream.readUTF();
-                String salida  = generarRespuesta(entrada);
-                
-                outpuStream.writeUTF(salida);
-            }
+            this.obtenerFlujos();
+            this.procesarConexion();
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch( Exception e){

@@ -79,6 +79,8 @@ public class Cliente {
             this.clienteActual.toObject(datos);
             
             System.out.println("Bienvenido, " + this.clienteActual.getNombre());
+            salida.writeUTF("EXIT");
+            running = false;
         } else {
             System.out.println("Error de autenticacion");
         }

@@ -5,13 +5,20 @@
  */
 package Servidor;
 
+import DAO.ClienteDAO;
 import java.util.Hashtable;
+import model.Cliente;
 
 /**
  *
  * @author andresroberto
  */
 public class Controlador {
+    ClienteDAO dao;
+    
+    public Controlador(){
+        dao = new ClienteDAO();
+    }
     
     private Hashtable<String, String> getParams(String cadena) {
         Hashtable<String, String> params = new Hashtable<>();
@@ -32,7 +39,7 @@ public class Controlador {
         String email = params.get("email");
         String password = params.get("password");
         
-        model.Cliente cliente = Database.Cliente.buscarPorEmail(email);
+        Cliente cliente = dao.buscarPorEmail(email);
         
         if (cliente != null && cliente.getClave().equals(password)) {
             return "SUCCESS:" + cliente.toString();
