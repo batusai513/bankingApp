@@ -74,7 +74,9 @@ public class HiloServidor implements Runnable {
         
         switch(mensajeDividido[0]) {
             case "session/create" :
-                return this.responder(this.aplicacion.crearSesion(mensajeDividido[1]));
+                Object respuesta = this.aplicacion.crearSesion(mensajeDividido[1]);
+                System.out.println(respuesta);
+                return this.responder(respuesta);
             default:
                 return "ERROR";
         }

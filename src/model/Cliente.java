@@ -73,4 +73,8 @@ public class Cliente implements Serializable{
     public String getClave() {
         return this.clave;
     }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 }

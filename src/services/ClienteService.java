@@ -37,7 +37,7 @@ public class ClienteService {
             if (rs.next()) {
                 cliente.setNombre(rs.getString("nombre"));
                 cliente.setEmail(rs.getString("email"));
-                cliente.setNombre(rs.getString("clave"));
+                cliente.setClave(rs.getString("password"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ClienteService.class.getName()).log(Level.SEVERE, null, ex);
