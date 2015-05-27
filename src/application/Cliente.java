@@ -65,43 +65,10 @@ public class Cliente {
         System.out.println("Escriba su clave");
         String clave = sc.nextLine();
         
-        salida.writeUTF("session/create:email=" + email + "&clave=" + clave);
+        salida.writeUTF("session/create:email=" + email + "&password=" + clave);
         
         String respuesta = entrada.readUTF();
-        String[] arrayRespuesta = respuesta.split(":");
         
-        String estado = arrayRespuesta[0];
-        
-        if (estado.equals("SUCCESS")) {
-            String datosCliente = arrayRespuesta[1];
-            
-            model.Cliente clienteActual = new model.Cliente();
-            clienteActual.toObject(datosCliente);
-            
-            System.out.println("\nBienvenido, " + clienteActual.getNombre() + ". Seleccione una opcion:");
-            
-            System.out.println("1. Ver saldo");
-            System.out.println("2. Pagar servicios");
-            System.out.println("3. Salir");
-            
-            String opcion = sc.nextLine();
-            
-            switch(opcion) {
-                case "1":
-                    salida.writeUTF("balance/show:client_id=" + clienteActual.getClienteId());
-                    break;
-                case "2":
-                    System.out.println("No tiene servicios a pagar");
-                    break;
-                case "3":
-                    System.out.println("Good Bye!");
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Opcion Invalida");
-            }
-        } else {
-            System.out.println("Correo incorrecto o clave incorrecta");
-        }
+        System.out.println(respuesta);
     }
 }
