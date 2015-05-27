@@ -21,8 +21,12 @@ public class BankingApp {
     ClienteService servicioCliente;
     CuentaService servicioCuenta;
     
+    public BankingApp(){
+        this.servicioCliente = new ClienteService();
+    }
+    
     private String getParam(String str) {
-        return str.substring(str.indexOf('='));
+        return str.substring(str.indexOf('=') + 1);
     }
 
     public String crearSesion(String datos) {

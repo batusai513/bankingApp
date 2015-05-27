@@ -26,9 +26,7 @@ public class Db {
             try{
                 Class.forName(DRIVER);
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             }
         }

@@ -70,7 +70,7 @@ public class HiloServidor implements Runnable {
     }
 
     private String atender(String mensaje) {
-        String[] mensajeDividido = mensaje.split("?");
+        String[] mensajeDividido = mensaje.split(":");
         
         switch(mensajeDividido[0]) {
             case "session/create" :

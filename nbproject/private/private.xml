@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/createDatabase.sql</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/bankingapp/BankingApp.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/application/HiloServidor.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/utilities/Db.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/model/Cliente.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/services/ClienteService.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/application/Cliente.java</file>
-            <file>file:/Users/andresroberto/Documents/JAVA/bankingApp/src/application/Servidor.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
