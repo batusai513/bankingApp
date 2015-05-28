@@ -12,8 +12,6 @@ CREATE TABLE UserDB.`cliente` (
     PRIMARY KEY (`clienteId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
-insert into cliente(nombre, apellido, fechaCreacionCliente, email, password) values("Richard", "Roncancio", CURDATE(), "email@koombea.com", "koombea123");
-
 CREATE TABLE UserDB.`cuenta` (
     `numeroDeCuenta` int(11) NOT NULL AUTO_INCREMENT,
     `saldo` double(10, 2) NOT NULL,
@@ -22,3 +20,6 @@ CREATE TABLE UserDB.`cuenta` (
     PRIMARY KEY (`numeroDeCuenta`),
     FOREIGN KEY (clienteCuentaId) REFERENCES cliente(clienteId)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+insert into cliente(nombre, apellido, fechaCreacionCliente, email, password) values("Richard", "Roncancio", CURDATE(), "email@koombea.com", "koombea123");
+insert into cuenta(saldo, fechaCreacionCuenta, clienteCuentaId) values(1000, CURDATE(), 9);

@@ -23,6 +23,15 @@ public class Cliente implements Serializable{
     private Date fechaCreacion;
     private ArrayList<Cuenta> cuenta;
     private String clave;
+    private int cuentaId;
+
+    public int getCuentaId() {
+        return cuentaId;
+    }
+
+    public void setCuentaId(int cuentaId) {
+        this.cuentaId = cuentaId;
+    }
 
     public String getNombre() {
         return nombre;
@@ -91,6 +100,7 @@ public class Cliente implements Serializable{
         this.nombre = params.get("nombre");
         this.apellido = params.get("apellido");
         this.email = params.get("email");
+        this.cuentaId = Integer.parseInt(params.get("cuenta"));
     }
     
     public String toString() {
@@ -100,6 +110,7 @@ public class Cliente implements Serializable{
         cadena += "&nombre=" + this.nombre;
         cadena += "&apellido=" + this.apellido;
         cadena += "&email=" + this.email;
+        cadena += "&cuenta=" + this.getCuentaId();
 
         return cadena;
     }

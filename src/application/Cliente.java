@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,6 +106,20 @@ public class Cliente {
         System.out.println("Bienvenido, " + this.clienteActual.getNombre());
     }
     
+    public void mostrarSaldo(String respuesta) {
+        String[] arrayRespuesta = respuesta.split(":");
+        String estado = arrayRespuesta[0];
+
+        if (estado.equals("SUCCESS")) {
+            String datos = arrayRespuesta[1];
+            
+            Hashtable<String, String> parsedData = utilities.Parser.getParams(datos);
+            System.out.println("Su saldo es " + parsedData.get("saldo"));
+        } else {
+            System.out.println("\n\nHa ocurrido un error.\n\n");
+        }
+    }
+    
     public void renderMemu() throws IOException{
 
         boolean exit=false;
@@ -117,7 +132,8 @@ public class Cliente {
 
             switch(opcion) {
                 case 1:
-                    this.enviarMensaje("balance/show:client_id=" + clienteActual.getClienteId());
+                    this.enviarMensaje("balance/show:cuenta=" + clienteActual.getCuentaId());
+                    mostrarSaldo(entrada.readUTF());
                     break;
                 case 2:
                     System.out.println("No tiene servicios a pagar");

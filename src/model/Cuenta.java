@@ -41,4 +41,13 @@ public class Cuenta implements Serializable{
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    public String toString() {
+        String cadena = "";
+        
+        cadena += "numeroDeCuenta=" + this.numeroDeCuenta;
+        cadena += "&saldo=" + this.saldo;
+        return cadena;
+    }
+    
 }

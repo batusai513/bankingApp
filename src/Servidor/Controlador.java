@@ -8,6 +8,7 @@ package Servidor;
 import DAO.ClienteDAO;
 import java.util.Hashtable;
 import model.Cliente;
+import model.Cuenta;
 
 /**
  *
@@ -46,6 +47,22 @@ public class Controlador {
         } else {
             return "ERROR";
         }
+    }
+    
+    public String obtenerBalance(String datos){
+        
+       Hashtable<String, String> params = getParams(datos);
+        
+        int numeroDeCuenta = Integer.parseInt(params.get("cuenta"));
+        
+        Cuenta cuenta = DAO.ClienteDAO.buscarPorId(numeroDeCuenta);
+        
+        if (cuenta != null) {
+            return "SUCCESS:" + cuenta.toString();
+        } else {
+            return "ERROR";
+        }
+        
     }
     
 }

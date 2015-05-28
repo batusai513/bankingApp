@@ -52,10 +52,13 @@ public class Enrutador implements Runnable {
     
     private String generarRespuesta(String entrada) {
         String[] arrayEntrada = entrada.split(":");
-        
+        String respuesta;
         switch(arrayEntrada[0]) {
             case "session/create" :
-                String respuesta = controlador.crearSesion(arrayEntrada[1]);
+                respuesta = controlador.crearSesion(arrayEntrada[1]);
+                return respuesta;
+            case "balance/show" :
+                respuesta = controlador.obtenerBalance(arrayEntrada[1]);
                 return respuesta;
             default:
                 return "ERROR";
